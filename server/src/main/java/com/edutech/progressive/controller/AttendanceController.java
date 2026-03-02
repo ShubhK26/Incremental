@@ -51,7 +51,7 @@ public class AttendanceController {
             List<Attendance> attendanceList = attendanceService.getAttendanceByStudent(studentId);
             return new ResponseEntity<>(attendanceList, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -61,7 +61,7 @@ public class AttendanceController {
             List<Attendance> attendanceList = attendanceService.getAttendanceByCourse(courseId);
             return new ResponseEntity<>(attendanceList, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

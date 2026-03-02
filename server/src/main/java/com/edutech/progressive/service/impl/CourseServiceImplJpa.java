@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 public class CourseServiceImplJpa implements CourseService {
 
+    @Autowired
     private CourseRepository courseRepository;
 
     @Autowired

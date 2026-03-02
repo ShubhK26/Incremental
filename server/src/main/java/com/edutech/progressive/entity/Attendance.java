@@ -12,29 +12,29 @@ import java.util.Date;
 public class Attendance {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "attendance_id")
     private int attendanceId;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(name = "student_id")
     private Student student;
 
-    @Column(name = "attendance_date", nullable = false)
+    @Column(name = "attendance_date")
     private Date attendanceDate;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at")
     private Date createdAt;
 
     public Attendance() {
-        this.createdAt = new Date();
+        
     }
 
     public Attendance(Course course, Student student, Date attendanceDate, String status) {
@@ -42,10 +42,10 @@ public class Attendance {
         this.student = student;
         this.attendanceDate = attendanceDate;
         this.status = status;
-        this.createdAt = new Date();
     }
-
+    
     // Getters and Setters
+    
     public int getAttendanceId() {
         return attendanceId;
     }
@@ -89,4 +89,9 @@ public class Attendance {
     public Date getCreatedAt() {
         return createdAt;
     }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+    
 }

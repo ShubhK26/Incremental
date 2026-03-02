@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 public class StudentServiceImplJpa implements StudentService {
 
+    @Autowired
     private StudentRepository studentRepository;
 
     @Autowired
@@ -24,7 +25,7 @@ public class StudentServiceImplJpa implements StudentService {
     @Autowired
     AttendanceRepository attendanceRepository;
 
-    @Autowired
+    // @Autowired
     public StudentServiceImplJpa(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
