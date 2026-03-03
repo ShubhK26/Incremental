@@ -11,7 +11,7 @@ public interface AttendanceService {
 
     public List<Attendance> getAllAttendance() throws Exception;
 
-    // Attendance createAttendance(Attendance attendance ) throws Exception;
+    Attendance createAttendance(Attendance attendance ) throws Exception;
 
     public void deleteAttendance(int attendanceId ) throws Exception;
 
