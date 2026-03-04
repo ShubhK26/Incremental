@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/enrollment/**").hasAnyAuthority("STUDENT", "TEACHER")
                 .anyRequest().permitAll()
                 .and()
-                .csrf().disable()
+                // .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
