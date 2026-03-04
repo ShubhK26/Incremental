@@ -19,6 +19,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceRepository.findAll();
     }
 
+    @Override
     public Attendance createAttendance(Attendance attendance) {
         if (attendanceRepository.findByCourse_CourseIdAndStudent_StudentIdAndAttendanceDate(
                 attendance.getCourse().getCourseId(),

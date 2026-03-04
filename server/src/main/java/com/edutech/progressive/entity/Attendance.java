@@ -33,9 +33,7 @@ public class Attendance {
     @Column(name = "created_at")
     private Date createdAt;
 
-    public Attendance() {
-        
-    }
+    public Attendance() {}
 
     public Attendance(Course course, Student student, Date attendanceDate, String status) {
         this.course = course;
@@ -43,9 +41,9 @@ public class Attendance {
         this.attendanceDate = attendanceDate;
         this.status = status;
     }
-    
+
     // Getters and Setters
-    
+
     public int getAttendanceId() {
         return attendanceId;
     }
@@ -93,5 +91,5 @@ public class Attendance {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    
+
 }

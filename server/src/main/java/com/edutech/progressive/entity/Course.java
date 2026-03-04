@@ -25,7 +25,7 @@ public class Course {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "teacher_id")
+    @Column(name = "teacher_id" , insertable = false, updatable = false)
     private Integer teacherId;
 
     @ManyToOne(cascade = CascadeType.MERGE)
