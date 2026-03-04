@@ -30,16 +30,19 @@ public class Attendance {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private Date createdAt;
 
-    public Attendance() {}
+    public Attendance() {
+        this.createdAt = new Date();
+    }
 
     public Attendance(Course course, Student student, Date attendanceDate, String status) {
         this.course = course;
         this.student = student;
         this.attendanceDate = attendanceDate;
         this.status = status;
+        this.createdAt = new Date();
     }
 
     // Getters and Setters

@@ -28,8 +28,7 @@ public class EnrollmentController {
     @PostMapping
     public ResponseEntity<?> createEnrollment(@RequestBody Enrollment enrollment) {
         try {
-            int enrollmentId = enrollmentServiceImpl.createEnrollment(enrollment);
-            return new ResponseEntity<>(enrollmentId, HttpStatus.CREATED);
+            return new ResponseEntity<>(enrollmentServiceImpl.createEnrollment(enrollment), HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }  catch (Exception e) {
@@ -40,7 +39,7 @@ public class EnrollmentController {
     @PutMapping(("/{enrollmentId}"))
     public ResponseEntity<?> updateEnrollment(@PathVariable int enrollmentId, @RequestBody Enrollment enrollment) {
         try {
-            enrollment.setEnrollmentId(enrollmentId);
+            // enrollment.setEnrollmentId(enrollmentId);
             enrollmentServiceImpl.updateEnrollment(enrollment);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (RuntimeException e) {

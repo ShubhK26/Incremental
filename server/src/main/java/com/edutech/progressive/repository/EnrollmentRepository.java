@@ -23,12 +23,12 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
     @Transactional
     @Modifying
     @Query("DELETE FROM Enrollment e WHERE e.course.courseId = :courseId")
-    void deleteByCourseId(int courseId);
+    void deleteByCourseId(@Param("courseId") int courseId);
 
     @Transactional
     @Modifying
     @Query("DELETE FROM Enrollment e WHERE e.student.studentId = :studentId")
-    void deleteByStudentId(int studentId);
+    void deleteByStudentId(@Param("studentId") int studentId);
 
     @Transactional
     @Modifying

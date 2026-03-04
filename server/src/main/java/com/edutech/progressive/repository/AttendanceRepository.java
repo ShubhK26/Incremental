@@ -15,9 +15,11 @@ import java.util.Optional;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
 
-    public List<Attendance> findByStudent_StudentId(int studentId);
+    @Query("select a from Attendance a where a.student.studentId = :studentId")
+    public List<Attendance> findByStudent_StudentId(@Param("studentId") int studentId);
 
-    public List<Attendance> findByCourse_CourseId(int courseId);
+    @Query("select a from Attendance a where a.course.courseId = :courseId")
+    public List<Attendance> findByCourse_CourseId(@Param("courseId") int courseId);
 
     public Optional<Attendance> findByCourse_CourseIdAndStudent_StudentIdAndAttendanceDate(int courseId, int studentId, Date attendanceDate);
 
