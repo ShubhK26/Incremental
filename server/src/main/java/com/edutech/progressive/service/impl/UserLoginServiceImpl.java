@@ -40,9 +40,12 @@ public class UserLoginServiceImpl implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public User getUserDetails(int userId) {
-        return null;
-    }
+
+public User getUserDetails(int userId) {
+    return userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+}
+
 
     @Override
     public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
