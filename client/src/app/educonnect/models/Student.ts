@@ -16,7 +16,7 @@ export class Student {
         this.address = address;
     }
 
-    logAttributes?(): void {
+    logAttributes(): void {
         console.log('studentId:', this.studentId);
         console.log('fullName:', this.fullName);
         console.log('dateOfBirth:', this.dateOfBirth);

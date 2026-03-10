@@ -1,19 +1,19 @@
-import { Teacher } from "./Teacher";
+// import { Teacher } from "./Teacher";
 
 export class Course {
     courseId: number;
     courseName: string;
     description: string;
-    teacherId: Teacher;
+    teacherId: number;
   
-    constructor(courseId: number, courseName: string, description: string, teacherId: Teacher) {
+    constructor(courseId: number, courseName: string, description: string, teacherId: number) {
       this.courseId = courseId;
       this.courseName = courseName;
       this.description = description;
       this.teacherId = teacherId;
     }
   
-    logAttributes?(): void {
+    logAttributes(): void {
       console.log('courseId:', this.courseId);
       console.log('courseName:', this.courseName);
       console.log('description:', this.description);

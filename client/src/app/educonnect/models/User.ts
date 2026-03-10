@@ -1,15 +1,15 @@
-import { Student } from "./Student";
-import { Teacher } from "./Teacher";
+// import { Student } from "./Student";
+// import { Teacher } from "./Teacher";
 
 export class User {
     userId: number;
     username: string;
     password: string;
     role: string;
-    studentId?: Student;
-    teacherId?: Teacher;
+    studentId?: number;
+    teacherId?: number;
   
-    constructor(userId: number, username: string, password: string, role: string, studentId?: Student, teacherId?: Teacher) {
+    constructor(userId: number, username: string, password: string, role: string, studentId?: number, teacherId?: number) {
       this.userId = userId;
       this.username = username;
       this.password = password;
