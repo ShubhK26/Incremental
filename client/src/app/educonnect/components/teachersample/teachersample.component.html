@@ -1,0 +1,16 @@
+<div class="teacher-container">
+    <h2>Teacher Details</h2>
+
+    <div class="teacher-info">
+        <p><strong>Teacher ID:</strong> {{ teacher.teacherId }}</p>
+        <p><strong>Full Name:</strong> {{ teacher.fullName }}</p>
+        <p><strong>Subject:</strong> {{ teacher.subject }}</p>
+        <p><strong>Contact Number:</strong> {{ teacher.contactNumber }}</p>
+        <p><strong>Email:</strong> {{ teacher.email }}</p>
+        <p><strong>Years of Experience:</strong> {{ teacher.yearsOfExperience }}</p>
+    </div>
+
+    <button type="button" class="log-button" (click)="logTeacherAttributes()">
+        Log Teacher Attributes
+    </button>
+</div>

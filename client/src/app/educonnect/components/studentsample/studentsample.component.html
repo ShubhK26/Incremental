@@ -1,0 +1,16 @@
+<div class="student-container">
+    <h2>Student Details</h2>
+
+    <div class="student-info">
+        <p><strong>Student ID:</strong> {{ student.studentId }}</p>
+        <p><strong>Full Name:</strong> {{ student.fullName }}</p>
+        <p><strong>Date of Birth:</strong> {{ student.dateOfBirth | date }}</p>
+        <p><strong>Contact Number:</strong> {{ student.contactNumber }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Address:</strong> {{ student.address }}</p>
+    </div>
+
+    <button type="button" class="log-button" (click)="logStudentAttributes()">
+        Log Student Attributes
+    </button>
+</div>
