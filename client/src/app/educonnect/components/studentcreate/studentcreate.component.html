@@ -1,0 +1,49 @@
+<div class="student-create-container">
+    <h2>Create New Student</h2>
+
+    <form #studentForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" [(ngModel)]="student.fullName" class="form-control"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="student.dateOfBirth"
+                class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="contactNumber">Contact Number *</label>
+            <input type="tel" id="contactNumber" name="contactNumber" [(ngModel)]="student.contactNumber"
+                class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" [(ngModel)]="student.email" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address *</label>
+            <textarea id="address" name="address" [(ngModel)]="student.address" class="form-control" rows="3"
+                required></textarea>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+        </div>
+    </form>
+
+   
+    <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+    </div>
+
+    
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+</div>
