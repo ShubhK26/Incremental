@@ -1,0 +1,63 @@
+<div class="container">
+    <h2>Create Teacher</h2>
+    <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label>Full Name</label>
+            <input type="text" formControlName="fullName" />
+            <div *ngIf="submitted && f['fullName'].errors">
+                <small class="error">Full Name is required.</small>
+            </div>
+        </div>
+        <div>
+            <label>Contact Number</label>
+            <input type="text" formControlName="contactNumber" />
+            <div *ngIf="submitted && f['contactNumber'].errors">
+                <small class="error" *ngIf="f['contactNumber'].errors['required']">
+
+                    Contact Number is required.
+                </small>
+                <small class="error" *ngIf="f['contactNumber'].errors['pattern']">
+
+                    Must be 10 digits.
+                </small>
+            </div>
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="email" formControlName="email" />
+            <div *ngIf="submitted && f['email'].errors">
+                <small class="error" *ngIf="f['email'].errors['required']">
+                    Email is required.
+                </small>
+                <small class="error" *ngIf="f['email'].errors['email']">
+                    Enter a valid email.
+                </small>
+            </div>
+        </div>
+        <div>
+            <label>Subject</label>
+            <input type="text" formControlName="subject" />
+            <div *ngIf="submitted && f['subject'].errors">
+                <small class="error">Subject is required.</small>
+            </div>
+        </div>
+        <div>
+            <label>Years of Experience</label>
+            <input type="number" formControlName="yearsOfExperience" />
+            <div *ngIf="submitted && f['yearsOfExperience'].errors">
+                <small class="error" *ngIf="f['yearsOfExperience'].errors['required']">
+
+                    Years of experience is required.
+                </small>
+                <small class="error" *ngIf="f['yearsOfExperience'].errors['min']">
+
+                    Minimum 1 year required.
+                </small>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+        <button type="button" (click)="resetForm()">Reset</button>
+    </form>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</div>

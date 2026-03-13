@@ -1,0 +1,22 @@
+<h2>Create Course</h2>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+    <label>Course Name</label>
+    <input formControlName="courseName" />
+    <div *ngIf="submitted && f['courseName'].errors">Course name required</div>
+    <label>Description</label>
+    <textarea formControlName="description"></textarea>
+    <div *ngIf="submitted && f['description'].errors">
+        <span *ngIf="f['description'].errors['required']">Description required</span>
+        <span *ngIf="f['description'].errors['maxlength']">Max 500 characters</span>
+    </div>
+    <label>Teacher ID</label>
+    <input formControlName="teacherId" />
+    <div *ngIf="submitted && f['teacherId'].errors">
+        <span *ngIf="f['teacherId'].errors['required']">Teacher ID required</span>
+        <span *ngIf="f['teacherId'].errors['pattern']">Must be numeric</span>
+    </div>
+    <button type="submit" (ngSubmit) = "onSubmit()">Submit</button>
+    <button type="button" (click)="resetForm()">Reset</button>
+</form>
+<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
