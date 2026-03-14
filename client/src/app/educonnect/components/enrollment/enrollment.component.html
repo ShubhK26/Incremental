@@ -1,0 +1,46 @@
+<div class="enrollment-container">
+    <h2>Enrollment Form</h2>
+    <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="studentId">Student ID:</label>
+            <input id="studentId" type="number" formControlName="studentId" />
+            <div *ngIf="submitted && enrollmentForm.controls['studentId'].errors">
+                <small *ngIf="enrollmentForm.controls['studentId'].errors['required']">
+                    Student ID is required.
+                </small>
+                <small *ngIf="enrollmentForm.controls['studentId'].errors['pattern']">
+                    Student ID must be numeric.
+                </small>
+            </div>
+        </div>
+
+        <div>
+            <label for="courseId">Course ID:</label>
+            <input id="courseId" type="number" formControlName="courseId" />
+            <div *ngIf="submitted && enrollmentForm.controls['courseId'].errors">
+                <small *ngIf="enrollmentForm.controls['courseId'].errors['required']">
+
+                    Course ID is required.
+                </small>
+                <small *ngIf="enrollmentForm.controls['courseId'].errors['pattern']">
+
+                    Course ID must be numeric.
+                </small>
+            </div>
+        </div>
+        
+        <div>
+            <label for="enrollmentDate">Enrollment Date:</label>
+            <input id="enrollmentDate" type="date" formControlName="enrollmentDate" />
+            <div *ngIf="submitted && enrollmentForm.controls['enrollmentDate'].errors">
+                <small>Enrollment Date is required.</small>
+            </div>
+        </div>
+        
+        <button type="submit">Add Enrollment</button>
+        <button type="button" (click)="resetForm()">Reset</button>
+    </form>
+
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</div>
