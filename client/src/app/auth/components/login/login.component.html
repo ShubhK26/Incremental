@@ -1,0 +1,35 @@
+<div class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <label for="username">Username:</label>
+        <input id="username" formControlName="username" type="text" />
+        <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+            <small *ngIf="loginForm.get('username')?.errors?.['required']">
+                Username is required.
+            </small>
+            <small *ngIf="loginForm.get('username')?.errors?.['minlength']">
+                Minimum 3 characters required.
+            </small>
+            <small *ngIf="loginForm.get('username')?.errors?.['pattern']">
+                No special characters allowed.
+            </small>
+        </div>
+
+        <label for="password">Password:</label>
+        <input id="password" formControlName="password" type="password" />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']">
+                Password is required.
+            </small>
+            <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+                Must be at least 8 characters.
+            </small>
+            <small *ngIf="loginForm.get('password')?.errors?.['pattern']">
+                Must contain 1 uppercase and 1 number.
+            </small>
+        </div>
+        <button type="submit">Login</button>
+        <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+        <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+</div>

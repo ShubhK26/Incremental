@@ -29,7 +29,7 @@ export class EduConnectService {
   }
 
   deleteStudent(studentId: number): Observable<any> {
-    return this.http.delete<any>(`//orchardsolveone.lntedutech.com/project/4899/proxy/3000/Student/${studentId}`);
+    return this.http.delete<any>(`//orchardsolveone.lntedutech.com/project/4899/proxy/3000/Student/${studentId}`); // for id use $
   }
 
   getAllStudents(): Observable<Student[]> {
