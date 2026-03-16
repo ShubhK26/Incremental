@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/dashboard">EduConnect</a>
+  </div>
+  
+  <div class="navbar-menu" *ngIf="role === 'TEACHER'">
+    <a routerLink="/add-course" class="navbar-item">Add Course</a>
+    <a routerLink="/add-enrollment" class="navbar-item">Add Enrollment</a>
+  </div>
+
+  <div class="navbar-menu" *ngIf="role === 'STUDENT'">
+    <a routerLink="/add-course" class="navbar-item">Add Course</a>
+    <a routerLink="/add-enrollment" class="navbar-item">Add Enrollment</a>
+  </div>
+  
+  <div class="navbar-end">
+    <app-logout></app-logout>
+  </div>
+</nav>

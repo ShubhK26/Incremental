@@ -1,49 +1,32 @@
-<div class="student-create-container">
-    <h2>Create New Student</h2>
-
-    <form #studentForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" name="fullName" [(ngModel)]="student.fullName" class="form-control"
-                required>
-        </div>
-
-        <div class="form-group">
-            <label for="dateOfBirth">Date of Birth</label>
-            <input type="date" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="student.dateOfBirth"
-                class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="contactNumber">Contact Number *</label>
-            <input type="tel" id="contactNumber" name="contactNumber" [(ngModel)]="student.contactNumber"
-                class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" [(ngModel)]="student.email" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="address">Address *</label>
-            <textarea id="address" name="address" [(ngModel)]="student.address" class="form-control" rows="3"
-                required></textarea>
-        </div>
-
-        <div class="form-buttons">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
-        </div>
-    </form>
-
-   
-    <div *ngIf="successMessage" class="success-message">
-        {{ successMessage }}
+<h2>Create Student</h2>
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <label>Full Name:</label>
+    <input formControlName="fullName" />
+    <div *ngIf="studentForm.get('fullName')?.invalid && studentForm.get('fullName')?.touched">
+        <small>Name is required (min 2 characters).</small>
     </div>
-
-    
-    <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
+    <label>Date of Birth:</label>
+    <input type="date" formControlName="dob" />
+    <div *ngIf="studentForm.get('dob')?.invalid && studentForm.get('dob')?.touched">
+        <small> Date of Birth is required.</small>
     </div>
-</div>
+    <label>Contact Number:</label>
+    <input formControlName="contact" />
+    <div *ngIf="studentForm.get('contact')?.invalid && studentForm.get('contact')?.touched">
+        <small> Enter a valid 10-digit number.</small>
+    </div>
+    <label>Email:</label>
+    <input formControlName="email" />
+    <div *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched">
+        <small>Enter a valid email.</small>
+    </div>
+    <label>Address:</label>
+    <textarea formControlName="address"></textarea>
+    <div *ngIf="studentForm.get('address')?.invalid && studentForm.get('address')?.touched">
+        <small>Address must be at least 5 characters.</small>
+    </div>
+    <button type="submit" [disabled]="studentForm.invalid">Create</button>
+</form>
+<p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+<p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+<a routerLink="/dashboard">Return to Dashboard</a>

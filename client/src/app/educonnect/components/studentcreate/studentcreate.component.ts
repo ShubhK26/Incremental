@@ -1,57 +1,49 @@
-
-// export class StudentCreateComponent {
- 
-// }
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Student } from '../../models/Student';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-studentcreate',
-  imports: [CommonModule, FormsModule],
-  templateUrl: './studentcreate.component.html',
-  styleUrls: ['./studentcreate.component.scss'],
+  selector: 'app-student-create',
+  templateUrl: './studentcreate.component.html'
 })
-export class StudentCreateComponent {
-  student: Student;
+
+export class StudentCreateComponent implements OnInit {
+  studentForm!: FormGroup;
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  student: Student = new Student(0, '', null, '', '', '')
 
-  constructor() {
-    this.student = new Student(0, '', null, '', '', '');
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    this.studentForm = this.fb.group({
+      fullName: ['', [Validators.required, Validators.minLength(2)]],
+      dob: ['', Validators.required],
+      contact: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', [Validators.required, Validators.minLength(5)]]
+    });
   }
 
   onSubmit(): void {
-  
-    this.successMessage = null;
-    this.errorMessage = null;
-
-   
-    if (this.isFormValid()) {
-      this.successMessage = 'Student created successfully!';
-      console.log('Student created:', this.student);
-    } else {
-      this.errorMessage = 'Please fill in all required fields.';
-    }
+    if (this.studentForm.invalid) return;
+    this.http.post('/api/students', this.studentForm.value).subscribe({
+      next: () => {
+        this.successMessage = 'Student created successfully!';
+        this.errorMessage = null;
+        this.studentForm.reset();
+      },
+      error: (err: HttpErrorResponse) => this.handleError(err)
+    });
   }
 
-  resetForm(): void {
-    this.student = new Student(0, '', null, '', '', '');
+  private handleError(error: HttpErrorResponse): void {
+    this.errorMessage = error.error?.message || 'Failed to create student.';
     this.successMessage = null;
-    this.errorMessage = null;
-  }
-
-  private isFormValid(): boolean {
-    return !!(
-      this.student.fullName && 
-      this.student.fullName.trim() !== '' &&
-      this.student.contactNumber && 
-      this.student.contactNumber.trim() !== '' &&
-      this.student.email && 
-      this.student.email.trim() !== '' &&
-      this.student.address && 
-      this.student.address.trim() !== ''
-    );
   }
 }

@@ -7,13 +7,13 @@ import { EduConnectService } from '../../services/educonnect.service';
   templateUrl: './coursecreate.component.html',
   styleUrls: ['./coursecreate.component.scss']
 })
-export class CourseCreateComponent {
+export class CourseCreateComponent implements OnInit{
   courseForm: FormGroup;
   submitted = false;
   successMessage = '';
   errorMessage = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private eduService: EduConnectService) {
     this.courseForm = this.fb.group({
       courseId: [0],
       courseName: ['', Validators.required],
@@ -22,21 +22,19 @@ export class CourseCreateComponent {
     });
   }
 
-  // ngOnInit(): void {
+  ngOnInit(): void {
+    const courseId = Number(localStorage.getItem('course_id')) || 0;
 
-  //   const teacherId = Number(localStorage.getItem('teacher_id')) || 0;
-
-  //   this.eduService.getTeacherById(teacherId).subscribe({
-  //     next: (teacher) => {
-  //       console.log('Loaded teacher', teacher);
-
-  //       this.courseForm.patchValue({ teacherId: teacher.teacherId });
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to load teacher', err);
-  //     }
-  //   });
-  // }
+    this.eduService.getTeacherById(courseId).subscribe({
+      next: (course) => {
+        console.log('Loaded course', course);
+        this.courseForm.patchValue({ courseId: course.teacherId });
+      },
+      error: (err) => {
+        console.error('Failed to load course', err);
+      }
+    });
+  }
 
   get f() {
     return this.courseForm.controls;
