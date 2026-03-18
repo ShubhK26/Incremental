@@ -7,7 +7,7 @@ import { EduConnectService } from '../../services/educonnect.service';
   templateUrl: './coursecreate.component.html',
   styleUrls: ['./coursecreate.component.scss']
 })
-export class CourseCreateComponent implements OnInit{
+export class CourseCreateComponent implements OnInit {
   courseForm: FormGroup;
   submitted = false;
   successMessage = '';
@@ -18,20 +18,22 @@ export class CourseCreateComponent implements OnInit{
       courseId: [0],
       courseName: ['', Validators.required],
       description: ['', [Validators.required, Validators.maxLength(500)]],
-      teacherId: [null, [Validators.required, Validators.pattern(/^\d+$/)]]
+      teacherId: [0, [Validators.required, Validators.pattern(/^\d+$/)]]
     });
   }
 
   ngOnInit(): void {
-    const courseId = Number(localStorage.getItem('course_id')) || 0;
+   
+    const teacherId = Number(localStorage.getItem('teacher_id')) || 0;
 
-    this.eduService.getTeacherById(courseId).subscribe({
-      next: (course) => {
-        console.log('Loaded course', course);
-        this.courseForm.patchValue({ courseId: course.teacherId });
+    this.eduService.getTeacherById(teacherId).subscribe({
+      next: (teacher) => {
+        console.log('Loaded teacher', teacher);
+       
+        this.courseForm.patchValue({ teacherId: teacher.teacherId });
       },
       error: (err) => {
-        console.error('Failed to load course', err);
+        console.error('Failed to load teacher', err);
       }
     });
   }
@@ -44,15 +46,26 @@ export class CourseCreateComponent implements OnInit{
     this.submitted = true;
     this.successMessage = '';
     this.errorMessage = '';
+
     if (this.courseForm.invalid) {
-      this.errorMessage = 'Please correct the errors in the form.';
+      this.errorMessage = 'Please fix errors in the form.';
       return;
     }
-    const teacher = this.courseForm.value;
-    console.log('Course Created:', teacher);
-    this.successMessage = 'Course created successfully!';
-    this.courseForm.reset();
-    this.submitted = false;
+
+
+    this.eduService.addCourse(this.courseForm.value).subscribe({
+      next: () => {
+        this.successMessage = 'Course created successfully!';
+      
+        setTimeout(() => {
+          this.courseForm.reset({ courseId: 0, courseName: '', description: '', teacherId: 0 });
+          this.submitted = false;
+        }, 0);
+      },
+      error: () => {
+        this.errorMessage = 'Failed to create course.';
+      }
+    });
   }
 
   resetForm(): void {
@@ -61,4 +74,4 @@ export class CourseCreateComponent implements OnInit{
     this.successMessage = '';
     this.errorMessage = '';
   }
-}
+} 
