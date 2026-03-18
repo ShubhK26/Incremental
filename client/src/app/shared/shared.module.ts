@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AuthModule } from '../auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { NavBarComponent } from './navbar/navbar.component';
+import { LogoutComponent } from '../auth/components/logout/logout.component';
 
 @NgModule({
   declarations: [
-    NavBarComponent
+    NavBarComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,
