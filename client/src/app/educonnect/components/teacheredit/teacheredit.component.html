@@ -1,0 +1,78 @@
+<div class="form-container">
+<h2>Update Teacher</h2>
+<form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+<div class="form-group">
+<label for="fullName">Full Name:</label>
+<input type="text" id="fullName" formControlName="fullName" />
+<div *ngIf="teacherForm.get('fullName')?.invalid && teacherForm.get('fullName')?.touched" class="error">
+                Full Name is required.
+</div>
+</div>
+ 
+        <div class="form-group">
+<label for="username">Username:</label>
+<input type="text" id="username" formControlName="username" />
+<div *ngIf="teacherForm.get('username')?.invalid && teacherForm.get('username')?.touched" class="error">
+<small *ngIf="teacherForm.get('username')?.hasError('required')">Username is required.</small>
+<small *ngIf="teacherForm.get('username')?.hasError('pattern')">Username cannot contain special
+                    characters.</small>
+</div>
+</div>
+ 
+        <div class="form-group">
+<label for="password">Password:</label>
+<input type="password" id="password" formControlName="password" />
+<div *ngIf="teacherForm.get('password')?.invalid && teacherForm.get('password')?.touched" class="error">
+<small *ngIf="teacherForm.get('password')?.hasError('required')">Password is required.</small>
+<small *ngIf="teacherForm.get('password')?.hasError('minlength')">Password must be at least 8
+                    characters long.</small>
+<small *ngIf="teacherForm.get('password')?.hasError('pattern')">Password must contain at least one
+                    capital letter and one numeric digit.</small>
+</div>
+</div>
+ 
+        <div class="form-group">
+<label for="contactNumber">Contact Number:</label>
+<input type="text" id="contactNumber" formControlName="contactNumber" />
+<div *ngIf="teacherForm.get('contactNumber')?.invalid && teacherForm.get('contactNumber')?.touched"
+                class="error">
+                Contact Number must be 10 digits.
+</div>
+</div>
+ 
+        <div class="form-group">
+<label for="email">Email:</label>
+<input type="email" id="email" formControlName="email" />
+<div *ngIf="teacherForm.get('email')?.invalid && teacherForm.get('email')?.touched" class="error">
+                A valid email is required.
+</div>
+</div>
+ 
+        <div class="form-group">
+<label for="subject">Subject:</label>
+<input type="text" id="subject" formControlName="subject" />
+<div *ngIf="teacherForm.get('subject')?.invalid && teacherForm.get('subject')?.touched" class="error">
+                Subject is required.
+</div>
+</div>
+ 
+        <div class="form-group">
+<label for="yearsOfExperience">Years of Experience:</label>
+<input type="number" id="yearsOfExperience" formControlName="yearsOfExperience" />
+<div *ngIf="teacherForm.get('yearsOfExperience')?.invalid && teacherForm.get('yearsOfExperience')?.touched"
+                class="error">
+                Minimum 1 year of experience is required.
+</div>
+</div>
+ 
+        <div class="form-actions">
+<button type="submit" [disabled]="teacherForm.invalid">Submit</button>
+</div>
+<div class="form-footer">
+<a routerLink="/educonnect" class="link">Dashboard</a>
+</div>
+</form>
+ 
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</div>
