@@ -7,8 +7,7 @@ import { LogoutComponent } from '../auth/components/logout/logout.component';
 
 @NgModule({
   declarations: [
-    NavBarComponent,
-    LogoutComponent
+    NavBarComponent
   ],
   imports: [
     CommonModule,

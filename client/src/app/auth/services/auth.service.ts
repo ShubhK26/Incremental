@@ -13,7 +13,7 @@ export class AuthService {
   httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {
-    this.loginUrl = `${environment.apiUrl}/user`;
+    this.loginUrl = `https://orchardsolveone.lntedutech.com/project/4327/proxy/3000/user`;
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

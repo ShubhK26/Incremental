@@ -14,7 +14,7 @@ import { StudentDTO } from "../models/StudentDTO";
   providedIn: "root",
 })
 export class EduConnectService {
-  private baseUrl = `${environment.apiUrl}`;
+  private baseUrl = "https://orchardsolveone.lntedutech.com/project/4327/proxy/3000";
 
   constructor(private http: HttpClient) {}
 
