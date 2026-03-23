@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   login(user: Partial<User>): Observable<{ [key: string]: string }> {
-    return this.http.post<{ [key: string]: string }>(`${this.loginUrl}/login`, user, this.httpOptions)
+    return this.http.post<{ [key: string]: string }>(`${this.loginUrl}/auth/login`, user, this.httpOptions)
       .pipe(
         map(response => {
           if (response["token"]) {

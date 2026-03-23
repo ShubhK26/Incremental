@@ -75,8 +75,20 @@ public class UserLoginServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
-        return null;
+    
+@Override
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepository.findByUsername(username);
+
+    if (user == null) {
+        throw new UsernameNotFoundException("User not found");
     }
+
+    return org.springframework.security.core.userdetails.User
+            .withUsername(user.getUsername())
+            .password(user.getPassword())   // hashed password
+            .roles(user.getRole())          // STUDENT / TEACHER / ADMIN
+            .build();
+}
+ 
 }

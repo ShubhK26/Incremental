@@ -59,6 +59,7 @@ export class RegistrationComponent {
                     this.errorMessage = null;
                     this.resetForm();
                     console.log('Success:', this.successMessage);
+                    this.router.navigate(['/auth'])
                 },
                 error: (error) => {
                     if (error.error) {
