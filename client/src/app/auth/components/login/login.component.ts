@@ -28,6 +28,7 @@ export class LoginComponent {
     }
 
     onSubmit(): void {
+        console.log('dablas login cha button');
         if (this.loginForm.valid) {
             this.authService.login(this.loginForm.value).pipe(
                 tap((response: any) => {
@@ -38,7 +39,7 @@ export class LoginComponent {
                     localStorage.setItem("teacher_id", response.teacherId);
                     localStorage.setItem("student_id", response.studentId);
                     console.log(localStorage.getItem("role"));
-                    this.router.navigate(["educonnect"]);
+                    this.router.navigate(["/educonnect"]);
                 }),
                 catchError((error: string) => {
                     this.errorMessage = 'Invalid username or password';

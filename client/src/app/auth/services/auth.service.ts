@@ -58,10 +58,10 @@ export class AuthService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.loginUrl}/all`, this.httpOptions);
+    return this.http.get<User[]>(`${this.loginUrl}/auth/all`, this.httpOptions);
   }
 
   createUser(user: UserRegistrationDTO): Observable<any> {
-    return this.http.post<any>(`${this.loginUrl}/register`, user, this.httpOptions);
+    return this.http.post<any>(`${this.loginUrl}/auth/register`, user, this.httpOptions);
   }
 }

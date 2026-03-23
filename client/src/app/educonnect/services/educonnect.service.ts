@@ -13,8 +13,10 @@ import { StudentDTO } from "../models/StudentDTO";
 @Injectable({
   providedIn: "root",
 })
+
 export class EduConnectService {
-  private baseUrl = "https://orchardsolveone.lntedutech.com/project/4327/proxy/3000";
+  // private baseUrl = "https://orchardsolveone.lntedutech.com/project/4327/proxy/3000";
+  private baseUrl = environment.apiUrl
 
   constructor(private http: HttpClient) {}
 

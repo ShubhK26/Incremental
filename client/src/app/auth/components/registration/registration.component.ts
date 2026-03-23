@@ -53,7 +53,7 @@ export class RegistrationComponent {
             this.authService.createUser(this.registrationForm.value).subscribe({
                 next: (response) => {
                     console.log("Success");
-                    
+
                     console.log(this.registrationForm.value);
                     this.successMessage = "User successfully registered";
                     this.errorMessage = null;
@@ -75,11 +75,10 @@ export class RegistrationComponent {
             this.successMessage = null;
         }
     }
-    
-goToLogin() {
-  this.router.navigate(['../']); // navigates to auth/ (login page)
-}
 
+    goToLogin() {
+        this.router.navigate(['../']); // navigates to auth/ (login page)
+    }
 
     resetForm(): void {
         this.registrationForm.reset();
