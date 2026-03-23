@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/attendance/**").hasAuthority("TEACHER")
                 .antMatchers(HttpMethod.DELETE, "/attendance/**").hasAuthority("TEACHER")
                 .antMatchers("/enrollment/**").hasAnyAuthority("STUDENT", "TEACHER")
-                .anyRequest().permitAll()
+                 .anyRequest().permitAll()
                 .and()
                 // .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

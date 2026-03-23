@@ -69,7 +69,8 @@ public class StudentServiceImplJpa implements StudentService {
 
     @Override
     public Student getStudentById(int studentId) throws Exception {
-        return studentRepository.findByStudentId(studentId);
+        // return studentRepository.findByStudentId(studentId);
+        return studentRepository.findById(studentId).orElse(null);
     }
 
     @Override

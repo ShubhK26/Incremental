@@ -35,10 +35,14 @@ export class LoginComponent {
                     console.log("response", response);
                     localStorage.setItem("token", response.token);
                     localStorage.setItem("role", response.roles);
+                    
                     localStorage.setItem("user_id", response.userId);
                     localStorage.setItem("teacher_id", response.teacherId);
                     localStorage.setItem("student_id", response.studentId);
                     console.log(localStorage.getItem("role"));
+                    console.log("----");
+                    console.log(localStorage.getItem("token"));
+
                     this.router.navigate(["/educonnect"]);
                 }),
                 catchError((error: string) => {

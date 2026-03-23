@@ -34,38 +34,37 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        final String authorizationHeader = request.getHeader("Authorization");
+   @Override
+protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                FilterChain filterChain) throws ServletException, IOException {
 
-        String jwt = null;
-        Integer userId = null;
+    final String authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
-            try {
-                Claims claims = jwtUtil.extractAllClaims(jwt);
-                userId = (Integer) claims.get("userId"); // Extract userId from token claims
-            } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException |
-                     SignatureException | IllegalArgumentException e) {
-            }
-        }
+    String jwt = null;
 
-        if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(String.valueOf(userId));
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        jwt = authorizationHeader.substring(7);
 
-            if (jwtUtil.validateToken(jwt, userDetails)) {
-                Claims claims = jwtUtil.extractAllClaims(jwt);
+        try {
+            Claims claims = jwtUtil.extractAllClaims(jwt);
+
+            String role = (String) claims.get("role");
+
+            if (role != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
                 Collection<? extends GrantedAuthority> authorities =
-                        AuthorityUtils.createAuthorityList((String) claims.get("role"));
+                        AuthorityUtils.createAuthorityList(role);
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, authorities);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(null, null, authorities);
+
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        }
 
-        filterChain.doFilter(request, response);
+        } catch (Exception e) {
+            System.out.println("JWT Error: " + e.getMessage());
+        }
     }
-}
+
+    filterChain.doFilter(request, response);
+}}

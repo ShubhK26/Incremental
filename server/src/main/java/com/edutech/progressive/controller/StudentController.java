@@ -32,14 +32,14 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public ResponseEntity<Student> getStudentById(@PathVariable int studentId) {
-        try {
-            Student student = studentServiceImplJpa.getStudentById(studentId);
-            return new ResponseEntity<>(student, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+        public ResponseEntity<Student> getStudentById(@PathVariable int studentId) {
+                try {
+                            Student student = studentServiceImplJpa.getStudentById(studentId);
+                                        return new ResponseEntity<>(student, HttpStatus.OK);
+                                                } catch (Exception e) {
+                                                            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                                                                    }
+                                                                        }
 
     @PostMapping
     public ResponseEntity<?> addStudent(@RequestBody Student student) {

@@ -25,9 +25,13 @@ export class AuthService {
     return this.http.post<{ [key: string]: string }>(`${this.loginUrl}/auth/login`, user, this.httpOptions)
       .pipe(
         map(response => {
+          console.log(response);
           if (response["token"]) {
             localStorage.setItem('token', response["token"]);
-            localStorage.setItem('role', response["role"]);
+            localStorage.setItem('role', response["roles"]);
+            console.log(localStorage.getItem("role"));
+                    console.log("+++");
+                                        console.log(localStorage.getItem("token"));
             localStorage.setItem('userId', response["userId"]);
             if (response["studentId"]) {
               localStorage.setItem('studentId', response["studentId"]);
