@@ -4,33 +4,44 @@
     <!-- Brand -->
     <a class="navbar-brand" routerLink="/dashboard">EduConnect</a>
 
-    <!-- Menu (Student or Teacher) -->
-    <div class="collapse navbar-collapse">
+    <!-- Toggler for small screens -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <!-- Left items -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <!-- TEACHER -->
+        <!-- TEACHER links -->
         <li class="nav-item" *ngIf="role === 'TEACHER'">
           <a class="nav-link" routerLink="/add-course">Add Course</a>
         </li>
-
         <li class="nav-item" *ngIf="role === 'TEACHER'">
           <a class="nav-link" routerLink="/add-enrollment">Add Enrollment</a>
         </li>
 
-        <!-- STUDENT -->
+        <!-- STUDENT links -->
         <li class="nav-item" *ngIf="role === 'STUDENT'">
           <a class="nav-link" routerLink="/add-course">Add Course</a>
         </li>
-
         <li class="nav-item" *ngIf="role === 'STUDENT'">
           <a class="nav-link" routerLink="/add-enrollment">Add Enrollment</a>
         </li>
-
       </ul>
 
-      <!-- Logout on right -->
-      <div class="d-flex">
-        <app-logout></app-logout>
+      <!-- Right side: Logout -->
+      <div class="d-flex ms-lg-auto mt-2 mt-lg-0">
+        <!-- Style comes from SCSS below -->
+        <app-logout class="logout-chip"></app-logout>
       </div>
     </div>
 
