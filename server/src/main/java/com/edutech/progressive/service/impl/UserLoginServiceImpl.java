@@ -43,27 +43,44 @@ public class UserLoginServiceImpl implements UserDetailsService {
         // Create base User entity
         User user = new User();
         user.setUsername(dto.getUsername());
-        user.setRole(dto.getRole());
+        // user.setStudent();
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(dto.getRole());
         userRepository.save(user);
 
         // Save role-specific data
-        if ("TEACHER".equals(dto.getRole())) {
-            var teacher = new Teacher();
+        if (dto.getRole().equals("STUDENT")) {
+
+            Student student = new Student();
+            student.setFullName(dto.getFullName());
+            student.setDateOfBirth(dto.getDateOfBirth());
+            student.setContactNumber(dto.getContactNumber());
+            student.setEmail(dto.getEmail());
+            student.setAddress(dto.getAddress());
+
+            studentRepository.save(student);
+
+            // VERY IMPORTANT → Because User owns the relationship
+            user.setStudent(student);
+            userRepository.save(user);
+        }
+
+        if (dto.getRole().equals("TEACHER")) {
+
+            Teacher teacher = new Teacher();
+            teacher.setFullName(dto.getFullName());
+            teacher.setContactNumber(dto.getContactNumber());
             teacher.setEmail(dto.getEmail());
             teacher.setSubject(dto.getSubject());
             teacher.setYearsOfExperience(dto.getYearsOfExperience());
+
             teacherRepository.save(teacher);
+
+            // VERY IMPORTANT → Because User owns the relationship
+            user.setTeacher(teacher);
+            userRepository.save(user);
         }
 
-        if ("STUDENT".equals(dto.getRole())) {
-            var student = new Student();
-            student.setEmail(dto.getEmail());
-            student.setDateOfBirth(dto.getDateOfBirth());
-            student.setAddress(dto.getAddress());
-            studentRepository.save(student);
-        }
     }
 
     public User getUserByUsername(String username) {
@@ -75,20 +92,19 @@ public class UserLoginServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
     }
 
-    
-@Override
-public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByUsername(username);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
 
-    if (user == null) {
-        throw new UsernameNotFoundException("User not found");
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword()) // hashed password
+                .roles(user.getRole()) // STUDENT / TEACHER / ADMIN
+                .build();
     }
 
-    return org.springframework.security.core.userdetails.User
-            .withUsername(user.getUsername())
-            .password(user.getPassword())   // hashed password
-            .roles(user.getRole())          // STUDENT / TEACHER / ADMIN
-            .build();
-}
- 
 }
