@@ -1,23 +1,26 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    background-color: #1976d2;
-    padding: 1rem;
-    color: #fff;
-}
+.custom-nav {
+  background-color: #1d3557 !important; /* dark navy like screenshot */
+  padding: 0.7rem 1.5rem;
 
-.app-name {
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.3rem;
-}
- 
-.links a,
-app-logout {
-    margin-left: 1rem;
-    color: #fff;
-    text-decoration: none;
+  .navbar-brand {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: white !important;
+  }
+
+  .nav-link {
+    color: white !important;
+    margin-right: 1rem;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  app-logout {
+    color: white !important;
     cursor: pointer;
+    font-weight: 500;
+  }
 }
- 

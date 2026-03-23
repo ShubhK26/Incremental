@@ -29,7 +29,7 @@
         Role is required.
       </div>
 
-      <!-- ✅ Added: Years of Experience (only when Teacher is selected) -->
+      <!-- Teacher-only field: Years of Experience -->
       <div *ngIf="selectedRole === 'TEACHER'" class="mt-3">
         <label for="yearsOfExperience" class="form-label fw-semibold">Years of Experience:</label>
         <input
@@ -38,7 +38,6 @@
           class="form-control"
           formControlName="yearsOfExperience"
         />
-        <!-- Keeping error display simple since you asked not to change logic -->
       </div>
 
       <label for="fullName" class="form-label fw-semibold mt-3">Full Name:</label>
@@ -59,7 +58,18 @@
         Enter a valid email.
       </div>
 
-      <!-- Optional student/teacher sections (kept from your code) -->
+      <!-- Student-only field: Date of Birth -->
+      <div *ngIf="selectedRole === 'STUDENT'" class="mt-3">
+        <label for="dateOfBirth" class="form-label fw-semibold">Date of Birth:</label>
+        <input
+          id="dateOfBirth"
+          type="date"
+          class="form-control"
+          formControlName="dateOfBirth"
+        />
+      </div>
+
+      <!-- Optional student/teacher sections from your earlier template -->
       <div *ngIf="selectedRole === 'STUDENT'" class="mt-3">
         <label for="studentClass" class="form-label fw-semibold">Class:</label>
         <input id="studentClass" formControlName="studentClass" type="text" class="form-control" />

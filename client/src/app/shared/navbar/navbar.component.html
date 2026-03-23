@@ -1,19 +1,38 @@
-<nav class="navbar">
-  <div class="navbar-brand">
-    <a routerLink="/dashboard">EduConnect</a>
-  </div>
-  
-  <div class="navbar-menu" *ngIf="role === 'TEACHER'">
-    <a routerLink="/add-course" class="navbar-item">Add Course</a>
-    <a routerLink="/add-enrollment" class="navbar-item">Add Enrollment</a>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-dark custom-nav">
+  <div class="container-fluid">
 
-  <div class="navbar-menu" *ngIf="role === 'STUDENT'">
-    <a routerLink="/add-course" class="navbar-item">Add Course</a>
-    <a routerLink="/add-enrollment" class="navbar-item">Add Enrollment</a>
-  </div>
-  
-  <div class="navbar-end">
-    <app-logout></app-logout>
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/dashboard">EduConnect</a>
+
+    <!-- Menu (Student or Teacher) -->
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <!-- TEACHER -->
+        <li class="nav-item" *ngIf="role === 'TEACHER'">
+          <a class="nav-link" routerLink="/add-course">Add Course</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role === 'TEACHER'">
+          <a class="nav-link" routerLink="/add-enrollment">Add Enrollment</a>
+        </li>
+
+        <!-- STUDENT -->
+        <li class="nav-item" *ngIf="role === 'STUDENT'">
+          <a class="nav-link" routerLink="/add-course">Add Course</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role === 'STUDENT'">
+          <a class="nav-link" routerLink="/add-enrollment">Add Enrollment</a>
+        </li>
+
+      </ul>
+
+      <!-- Logout on right -->
+      <div class="d-flex">
+        <app-logout></app-logout>
+      </div>
+    </div>
+
   </div>
 </nav>
