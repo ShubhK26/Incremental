@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'app-registration',
@@ -14,7 +16,7 @@ export class RegistrationComponent {
     errorMessage: string | null = null;
     selectedRole: string | null = null; // To track the selected role
 
-    constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
+    constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
         this.registrationForm = this.formBuilder.group({
@@ -46,9 +48,13 @@ export class RegistrationComponent {
 
 
     onSubmit(): void {
+        console.log("dablas button");
         if (this.registrationForm.valid) {
             this.authService.createUser(this.registrationForm.value).subscribe({
                 next: (response) => {
+                    console.log("Success");
+                    
+                    console.log(this.registrationForm.value);
                     this.successMessage = "User successfully registered";
                     this.errorMessage = null;
                     this.resetForm();
@@ -69,6 +75,11 @@ export class RegistrationComponent {
             this.successMessage = null;
         }
     }
+    
+goToLogin() {
+  this.router.navigate(['../']); // navigates to auth/ (login page)
+}
+
 
     resetForm(): void {
         this.registrationForm.reset();

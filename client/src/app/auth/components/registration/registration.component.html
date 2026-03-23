@@ -61,9 +61,18 @@
             </div>
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit" (click)="onSubmit()">Register</button>
 
         <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
         <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+
+        <p>
+            Already have an account?
+            <button type="button" (click)="goToLogin()" style="background:none;border:none;color:blue;cursor:pointer;text-decoration:underline;">
+                Login
+            </button>
+        </p>
+
     </form>
 </div>

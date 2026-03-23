@@ -28,7 +28,19 @@
                 Must contain 1 uppercase and 1 number.
             </small>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" (click)="onSubmit()">Login</button>
         <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
         <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+
+        <p>
+            Don't have an account?
+            <a routerLink="register" type="button" style="cursor:pointer; text-decoration: underline; color: blue;"
+                (click)="$event.preventDefault()">
+                Create Account
+            </a>
+        </p>
+
+
+
     </form>
