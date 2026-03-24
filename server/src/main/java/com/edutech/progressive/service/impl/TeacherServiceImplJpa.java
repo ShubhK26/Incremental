@@ -66,7 +66,7 @@ public class TeacherServiceImplJpa implements TeacherService {
 
     @Override
     public Teacher getTeacherById(int teacherId) throws Exception {
-        return teacherRepository.findById(teacherId).orElse(null);
+    return teacherRepository.findByTeacherId(teacherId);
     }
 
 }

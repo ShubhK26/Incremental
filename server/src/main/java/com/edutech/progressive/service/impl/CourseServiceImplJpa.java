@@ -1,11 +1,13 @@
 package com.edutech.progressive.service.impl;
 
 import com.edutech.progressive.entity.Course;
+import com.edutech.progressive.entity.Teacher;
 import com.edutech.progressive.exception.CourseAlreadyExistsException;
 import com.edutech.progressive.exception.CourseNotFoundException;
 import com.edutech.progressive.repository.AttendanceRepository;
 import com.edutech.progressive.repository.CourseRepository;
 import com.edutech.progressive.repository.EnrollmentRepository;
+import com.edutech.progressive.repository.TeacherRepository;
 import com.edutech.progressive.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class CourseServiceImplJpa implements CourseService {
 
     @Autowired
     AttendanceRepository attendanceRepository;
+    @Autowired
+    TeacherRepository teacherRepository;
 
     @Autowired
     public CourseServiceImplJpa(CourseRepository courseRepository) {
@@ -39,15 +43,26 @@ public class CourseServiceImplJpa implements CourseService {
         return courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course with ID " + courseId + " not found for deletion"));
     }
+@Override
+public Integer addCourse(Course course) throws Exception {
 
-    @Override
-    public Integer addCourse(Course course) throws Exception {
-        Course existingCourse = courseRepository.findByCourseName(course.getCourseName());
-        if (existingCourse != null) {
-            throw new CourseAlreadyExistsException("Course with this name already exists, Course Name: " + course.getCourseName());
-        }
-        return courseRepository.save(course).getCourseId();
+    Course existingCourse = courseRepository.findByCourseName(course.getCourseName());
+    if (existingCourse != null) {
+        throw new CourseAlreadyExistsException(
+                "Course with this name already exists, Course Name: " + course.getCourseName());
     }
+
+    // ✅ Fetch teacher from DB instead of creating object
+    if (course.getTeacherId() != null) {
+        Teacher teacher = teacherRepository
+                .findById(course.getTeacherId())
+                .orElseThrow(() -> new RuntimeException("Teacher not found with id " + course.getTeacherId()));
+
+        course.setTeacher(teacher);
+    }
+
+    return courseRepository.save(course).getCourseId();
+}
 
     @Override
     public void updateCourse(Course course) throws Exception {

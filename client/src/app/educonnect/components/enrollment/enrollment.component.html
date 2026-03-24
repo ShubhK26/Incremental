@@ -1,49 +1,96 @@
-<div class="form-container">
-  <h2>Create Enrollments</h2>
-  <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="course">Course:</label>
-      <select formControlName="course">
-        <option value="">Select a Course</option>
-        <option *ngFor="let course of courses" [ngValue]="course">
-          {{ course.courseName }}
-        </option>
-      </select>
-    </div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
 
-    <div *ngIf="role === 'TEACHER'" class="form-group">
-      <label for="student">Student:</label>
-      <select formControlName="student">
-        <option value="">Select a Student</option>
-        <option *ngFor="let student of students" [ngValue]="student">
-          {{ student.fullName }}
-        </option>
-      </select>
-    </div>
+      <div class="card shadow-sm">
+        <div class="card-header bg-white text-center">
+          <h3 class="fw-bold mt-2">Create Enrollments</h3>
+        </div>
 
-    <div *ngIf="role === 'STUDENT'" class="form-group">
-      <div class="form-group">
-        <label for="student">Student Name:</label>
-        <input type="text" id="student" formControlName="student" [readonly]="true" class="readonly-input" />
+        <div class="card-body">
+
+          <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
+
+            <!-- COURSE SELECT -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Course:</label>
+              <select class="form-select" formControlName="course">
+                <option value="">Select a Course</option>
+                <option *ngFor="let course of courses" [ngValue]="course">
+                  {{ course.courseName }}
+                </option>
+              </select>
+            </div>
+
+            <!-- STUDENT (TEACHER VIEW) -->
+            <div *ngIf="role === 'TEACHER'" class="mb-3">
+              <label class="form-label fw-semibold">Student:</label>
+              <select class="form-select" formControlName="student">
+                <option value="">Select a Student</option>
+                <option *ngFor="let student of students" [ngValue]="student">
+                  {{ student.fullName }}
+                </option>
+              </select>
+            </div>
+
+            <!-- STUDENT (STUDENT VIEW) -->
+            <div *ngIf="role === 'STUDENT'" class="mb-3">
+              <label class="form-label fw-semibold">Student Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="student"
+                readonly
+              />
+            </div>
+
+            <!-- ENROLLMENT DATE -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Enrollment Date:</label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="enrollmentDate"
+              />
+              <div
+                *ngIf="enrollmentForm.get('enrollmentDate')?.invalid && enrollmentForm.get('enrollmentDate')?.touched"
+                class="text-danger small mt-1"
+              >
+                Enrollment Date is required.
+              </div>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <div class="text-center mt-4">
+              <button
+                type="submit"
+                class="btn btn-success px-4"
+                [disabled]="enrollmentForm.invalid"
+              >
+                Add Enrollment
+              </button>
+            </div>
+
+            <!-- Dashboard Link -->
+            <div class="text-center mt-3">
+              <a routerLink="/educonnect" class="text-primary">Dashboard</a>
+            </div>
+
+          </form>
+
+          <!-- SUCCESS MESSAGE -->
+          <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+            {{ successMessage }}
+          </div>
+
+          <!-- ERROR MESSAGE -->
+          <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+            {{ errorMessage }}
+          </div>
+
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="enrollmentDate">Enrollment Date:</label>
-      <input type="date" id="enrollmentDate" formControlName="enrollmentDate" />
-      <div *ngIf="enrollmentForm.get('enrollmentDate')?.invalid && enrollmentForm.get('enrollmentDate')?.touched"
-        class="error">
-        Enrollment Date is required.
-      </div>
     </div>
-
-    <div class="form-actions">
-      <button type="submit" [disabled]="enrollmentForm.invalid">Add Enrollment</button>
-    </div>
-    <div class="form-footer">
-      <a routerLink="/educonnect" class="link">Dashboard</a>
-    </div>
-  </form>
-  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
 </div>
