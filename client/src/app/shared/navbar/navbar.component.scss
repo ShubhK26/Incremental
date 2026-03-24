@@ -1,5 +1,5 @@
 .custom-nav {
-  background-color: #1d3557 !important; /* navy like your screenshot */
+  background-color: #1d3557 !important;
   padding: 0.7rem 1.5rem;
 
   .navbar-brand {
@@ -18,35 +18,33 @@
     }
   }
 
-  /* 🔴 Red Logout (works even when it's an Angular component tag) */
+  /* Full red danger logout button */
   app-logout.logout-chip {
-    background-color: #dc3545;  /* Bootstrap danger */
-    color: #fff;
+    background-color: #dc3545 !important; 
+    color: #fff !important;
     padding: 6px 14px;
     border-radius: 4px;
-    font-weight: 500;
+    border: none !important;
+    outline: none !important;
     cursor: pointer;
     display: inline-block;
-    text-decoration: none;
-    white-space: nowrap;
+    font-weight: 500;
   }
 
-  app-logout.logout-chip:hover {
-    background-color: #bb2d3b;
-  }
-}
+}  /* <-- YOU MISSED THIS CLOSING BRACE */
 
-/* Minor spacing adjustments when collapsed on mobile */
-@media (max-width: 991.98px) { /* < lg */
+@media (max-width: 991.98px) {
   .custom-nav .navbar-collapse {
     padding-top: 0.5rem;
   }
+
   .custom-nav .nav-link {
-    margin-right: 0;           /* stack neatly */
-    padding: 0.35rem 0;        /* touch-friendly */
+    margin-right: 0;
+    padding: 0.35rem 0;
   }
+
   .custom-nav app-logout.logout-chip {
-    width: 100%;               /* full width chip on mobile for easy tap */
+    width: 100%;
     text-align: center;
     margin-top: 0.5rem;
   }

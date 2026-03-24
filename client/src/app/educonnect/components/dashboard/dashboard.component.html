@@ -1,55 +1,84 @@
 <app-navbar></app-navbar>
-<div *ngIf="role === 'TEACHER'" class="dashboard-container">
-  <h1>Teacher Dashboard</h1>
 
-  <div class="teacher-details">
-    <h2>Teacher Details</h2>
-    <p><strong>Name:</strong> {{ teacherDetails?.fullName }}</p>
-    <p><strong>Email:</strong> {{ teacherDetails?.email }}</p>
-    <p><strong>Subject:</strong> {{ teacherDetails?.subject }}</p>
-    <p><strong>Years of Experience:</strong> {{ teacherDetails?.yearsOfExperience }}</p>
-    <button (click)="navigateToEditTeacher()" class="btn-edit">Edit</button>
-    <button (click)="deleteTeacher()" class="btn-delete">Delete</button>
-  </div>
-  <div class="course-section">
-    <h2>Courses</h2>
-    <div *ngIf="courses.length === 0" class="empty-list">
-      <p>No courses.</p>
+<div *ngIf="role === 'TEACHER'" class="container mt-4">
+
+  <h2 class="text-center mb-4 fw-bold">Teacher Dashboard</h2>
+
+  <!-- Teacher Details -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Teacher Details</h5>
     </div>
-    <div *ngIf="courses.length > 0">
-      <table class="courses-table">
-        <thead>
+    <div class="card-body">
+      <p><strong>Name:</strong> {{ teacherDetails?.fullName }}</p>
+      <p><strong>Email:</strong> {{ teacherDetails?.email }}</p>
+      <p><strong>Subject:</strong> {{ teacherDetails?.subject }}</p>
+      <p><strong>Years of Experience:</strong> {{ teacherDetails?.yearsOfExperience }}</p>
+
+      <button (click)="navigateToEditTeacher()" class="btn btn-sm btn-primary me-2">Edit</button>
+      <button (click)="deleteTeacher()" class="btn btn-sm btn-danger">Delete</button>
+    </div>
+  </div>
+
+  <!-- Courses Section -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Courses</h5>
+    </div>
+    <div class="card-body">
+
+      <div *ngIf="courses.length === 0" class="alert alert-warning text-center">
+        No courses available.
+      </div>
+
+      <table *ngIf="courses.length > 0" class="table table-bordered table-hover">
+        <thead class="table-success">
           <tr>
             <th>Course Id</th>
             <th>Course Name</th>
             <th>Description</th>
-            <th>Actions</th>
+            <th width="150">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let course of courses" (click)="onCourseSelect(course)"
-            [class.selected]="course.courseId === selectedCourseId">
+          <tr *ngFor="let course of courses"
+              (click)="onCourseSelect(course)"
+              [class.table-info]="course.courseId === selectedCourseId">
+
             <td>{{ course.courseId }}</td>
             <td>{{ course.courseName }}</td>
             <td>{{ course.description }}</td>
             <td>
-              <button (click)="navigateToEditCourse(course.courseId)" class="btn-edit">Edit</button>
-              <button (click)="deleteCourse(course.courseId)" class="btn-delete">Delete</button>
+              <button (click)="navigateToEditCourse(course.courseId)"
+                      class="btn btn-sm btn-primary me-2">
+                Edit
+              </button>
+              <button (click)="deleteCourse(course.courseId)"
+                      class="btn btn-sm btn-danger">
+                Delete
+              </button>
             </td>
+
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
 
-  <div class="enrollment-section">
-    <h2>Enrollment in Selected Course - {{ selectedCourseId }} </h2>
-    <div *ngIf="selectedCourseEnrollment.length === 0" class="empty-list">
-      <p>No enrollments available.</p>
+  <!-- Enrollment Section -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-info text-white">
+      <h5 class="mb-0">Enrollment in Selected Course - {{ selectedCourseId }}</h5>
     </div>
-    <div *ngIf="selectedCourseEnrollment.length > 0">
-      <table class="enrollment-table">
-        <thead>
+    <div class="card-body">
+
+      <div *ngIf="selectedCourseEnrollment.length === 0" class="alert alert-warning text-center">
+        No enrollments available.
+      </div>
+
+      <table *ngIf="selectedCourseEnrollment.length > 0" class="table table-bordered">
+        <thead class="table-info">
           <tr>
             <th>Course Name</th>
             <th>Student Name</th>
@@ -64,16 +93,23 @@
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
-  <div class="students-section">
-    <h2>Students </h2>
-    <div *ngIf="students.length === 0" class="empty-list">
-      <p>No students available.</p>
+
+  <!-- Students Section -->
+  <div class="card mb-5 shadow-sm">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Students</h5>
     </div>
-    <div *ngIf="students.length > 0">
-      <table class="students-table">
-        <thead>
+    <div class="card-body">
+
+      <div *ngIf="students.length === 0" class="alert alert-warning text-center">
+        No students available.
+      </div>
+
+      <table *ngIf="students.length > 0" class="table table-bordered">
+        <thead class="table-secondary">
           <tr>
             <th>Student Id</th>
             <th>Student Name</th>
@@ -90,30 +126,46 @@
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
+
 </div>
 
-<div *ngIf="role === 'STUDENT'" class="dashboard-container">
-  <h1>Student Dashboard</h1>
 
-  <div class="student-details">
-    <h2>Student Details</h2>
-    <p><strong>Name:</strong> {{ studentDetails?.fullName }}</p>
-    <p><strong>Email:</strong> {{ studentDetails?.email }}</p>
-    <p><strong>Date Of Birth:</strong> {{ studentDetails?.dateOfBirth | date }}</p>
-    <p><strong>Contact Number:</strong> {{ studentDetails?.contactNumber }}</p>
-    <button (click)="navigateToEditStudent()" class="btn-edit">Edit</button>
-    <button (click)="deleteStudent()" class="btn-delete">Delete</button>
-  </div>
-  <div class="enrollment-section">
-    <h2>Enrolled Courses Details </h2>
-    <div *ngIf="enrollments.length === 0" class="empty-list">
-      <p>No enrollments available.</p>
+<!-- STUDENT DASHBOARD SECTION -->
+<div *ngIf="role === 'STUDENT'" class="container mt-4">
+
+  <h2 class="text-center mb-4 fw-bold">Student Dashboard</h2>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Student Details</h5>
     </div>
-    <div *ngIf="enrollments.length > 0">
-      <table class="enrollment-table">
-        <thead>
+    <div class="card-body">
+      <p><strong>Name:</strong> {{ studentDetails?.fullName }}</p>
+      <p><strong>Email:</strong> {{ studentDetails?.email }}</p>
+      <p><strong>Date Of Birth:</strong> {{ studentDetails?.dateOfBirth | date }}</p>
+      <p><strong>Contact Number:</strong> {{ studentDetails?.contactNumber }}</p>
+
+      <button (click)="navigateToEditStudent()" class="btn btn-sm btn-primary me-2">Edit</button>
+      <button (click)="deleteStudent()" class="btn btn-sm btn-danger">Delete</button>
+    </div>
+  </div>
+
+  <!-- Enrolled Courses -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Enrolled Courses Details</h5>
+    </div>
+    <div class="card-body">
+
+      <div *ngIf="enrollments.length === 0" class="alert alert-warning text-center">
+        No enrollments available.
+      </div>
+
+      <table *ngIf="enrollments.length > 0" class="table table-bordered">
+        <thead class="table-success">
           <tr>
             <th>Course Name</th>
             <th>Teacher Name</th>
@@ -130,16 +182,23 @@
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
-  <div class="course-section">
-    <h2>All Available Courses</h2>
-    <div *ngIf="courses.length === 0" class="empty-list">
-      <p>No courses.</p>
+
+  <!-- All Courses -->
+  <div class="card mb-5 shadow-sm">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">All Available Courses</h5>
     </div>
-    <div *ngIf="courses.length > 0">
-      <table class="courses-table">
-        <thead>
+    <div class="card-body">
+
+      <div *ngIf="courses.length === 0" class="alert alert-warning text-center">
+        No courses available.
+      </div>
+
+      <table *ngIf="courses.length > 0" class="table table-bordered">
+        <thead class="table-secondary">
           <tr>
             <th>Course Id</th>
             <th>Course Name</th>
@@ -156,6 +215,8 @@
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
+
 </div>
