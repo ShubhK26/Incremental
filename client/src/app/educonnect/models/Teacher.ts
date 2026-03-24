@@ -1,3 +1,5 @@
+import { Course } from "./Course";
+
 export class Teacher {
     teacherId: number;
     fullName: string;
@@ -5,6 +7,8 @@ export class Teacher {
     email: string;
     subject: string;
     yearsOfExperience: number;
+
+    courses?: Course[];
   
     constructor(teacherId: number, fullName: string, contactNumber: string, email: string, subject: string, yearsOfExperience: number
     ) {

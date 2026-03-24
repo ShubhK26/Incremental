@@ -18,7 +18,7 @@ export class CourseCreateComponent implements OnInit {
       courseId: [0],
       courseName: ['', Validators.required],
       description: ['', [Validators.required, Validators.maxLength(500)]],
-      teacherId: [0, [Validators.required, Validators.pattern(/^\d+$/)]]
+      teacherId: [0, Validators.required]
     });
   }
 
