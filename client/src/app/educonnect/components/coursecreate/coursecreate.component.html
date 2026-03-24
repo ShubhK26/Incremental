@@ -1,22 +1,77 @@
-<h2>Create Course</h2>
-<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-    <label>Course Name</label>
-    <input formControlName="courseName" />
-    <div *ngIf="submitted && f['courseName'].errors">Course name required</div>
-    <label>Description</label>
-    <textarea formControlName="description"></textarea>
-    <div *ngIf="submitted && f['description'].errors">
-        <span *ngIf="f['description'].errors['required']">Description required</span>
-        <span *ngIf="f['description'].errors['maxlength']">Max 500 characters</span>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow-sm">
+        <div class="card-header text-center bg-white">
+          <h3 class="fw-bold mt-2">Create Course</h3>
+        </div>
+
+        <div class="card-body">
+
+          <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+
+            <!-- Course Name -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Course Name:</label>
+              <input type="text" class="form-control" formControlName="courseName">
+              <div *ngIf="submitted && f['courseName'].errors" class="text-danger small mt-1">
+                Course name is required.
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description:</label>
+              <textarea class="form-control" rows="3" formControlName="description"></textarea>
+
+              <div *ngIf="submitted && f['description'].errors" class="text-danger small mt-1">
+                <span *ngIf="f['description'].errors['required']">
+                  Description is required.
+                </span>
+                <span *ngIf="f['description'].errors['maxlength']">
+                  Maximum 500 characters allowed.
+                </span>
+              </div>
+            </div>
+
+            <!-- Teacher ID -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Teacher ID:</label>
+              <input type="text" class="form-control" formControlName="teacherId">
+
+              <div *ngIf="submitted && f['teacherId'].errors" class="text-danger small mt-1">
+                <span *ngIf="f['teacherId'].errors['required']">Teacher ID is required.</span>
+                <span *ngIf="f['teacherId'].errors['pattern']">Must be numeric.</span>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-success px-4">Submit</button>
+              <button type="button" (click)="resetForm()" class="btn btn-secondary ms-2 px-4">
+                Reset
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Success / Error messages -->
+          <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+            {{ errorMessage }}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Dashboard link -->
+      <div class="text-center mt-3">
+        <a routerLink="/dashboard" class="text-primary">Dashboard</a>
+      </div>
+
     </div>
-    <label>Teacher ID</label>
-    <input formControlName="teacherId" />
-    <div *ngIf="submitted && f['teacherId'].errors">
-        <span *ngIf="f['teacherId'].errors['required']">Teacher ID required</span>
-        <span *ngIf="f['teacherId'].errors['pattern']">Must be numeric</span>
-    </div>
-    <button type="submit" (ngSubmit) = "onSubmit()">Submit</button>
-    <button type="button" (click)="resetForm()">Reset</button>
-</form>
-<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
+</div>

@@ -1,46 +1,102 @@
-<div class="enrollment-container">
-    <h2>Enrollment Form</h2>
-    <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label for="studentId">Student ID:</label>
-            <input id="studentId" type="number" formControlName="studentId" />
-            <div *ngIf="submitted && enrollmentForm.controls['studentId'].errors">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow-sm">
+        <div class="card-header bg-white text-center">
+          <h3 class="fw-bold mt-2">Create Enrollments</h3>
+        </div>
+
+        <div class="card-body">
+
+          <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
+
+            <!-- Student ID -->
+            <div class="mb-3">
+              <label for="studentId" class="form-label fw-semibold">Student ID:</label>
+              <input
+                id="studentId"
+                type="number"
+                class="form-control"
+                formControlName="studentId"
+              />
+
+              <div *ngIf="submitted && enrollmentForm.controls['studentId'].errors"
+                   class="text-danger small mt-1">
                 <small *ngIf="enrollmentForm.controls['studentId'].errors['required']">
-                    Student ID is required.
+                  Student ID is required.
                 </small>
                 <small *ngIf="enrollmentForm.controls['studentId'].errors['pattern']">
-                    Student ID must be numeric.
+                  Student ID must be numeric.
                 </small>
+              </div>
             </div>
-        </div>
 
-        <div>
-            <label for="courseId">Course ID:</label>
-            <input id="courseId" type="number" formControlName="courseId" />
-            <div *ngIf="submitted && enrollmentForm.controls['courseId'].errors">
+            <!-- Course ID -->
+            <div class="mb-3">
+              <label for="courseId" class="form-label fw-semibold">Course ID:</label>
+              <input
+                id="courseId"
+                type="number"
+                class="form-control"
+                formControlName="courseId"
+              />
+
+              <div *ngIf="submitted && enrollmentForm.controls['courseId'].errors"
+                   class="text-danger small mt-1">
                 <small *ngIf="enrollmentForm.controls['courseId'].errors['required']">
-
-                    Course ID is required.
+                  Course ID is required.
                 </small>
                 <small *ngIf="enrollmentForm.controls['courseId'].errors['pattern']">
-
-                    Course ID must be numeric.
+                  Course ID must be numeric.
                 </small>
+              </div>
             </div>
-        </div>
-        
-        <div>
-            <label for="enrollmentDate">Enrollment Date:</label>
-            <input id="enrollmentDate" type="date" formControlName="enrollmentDate" />
-            <div *ngIf="submitted && enrollmentForm.controls['enrollmentDate'].errors">
-                <small>Enrollment Date is required.</small>
-            </div>
-        </div>
-        
-        <button type="submit">Add Enrollment</button>
-        <button type="button" (click)="resetForm()">Reset</button>
-    </form>
 
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <!-- Enrollment Date -->
+            <div class="mb-3">
+              <label for="enrollmentDate" class="form-label fw-semibold">Enrollment Date:</label>
+              <input
+                id="enrollmentDate"
+                type="date"
+                class="form-control"
+                formControlName="enrollmentDate"
+              />
+
+              <div *ngIf="submitted && enrollmentForm.controls['enrollmentDate'].errors"
+                   class="text-danger small mt-1">
+                <small>Enrollment Date is required.</small>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-success px-4">Add Enrollment</button>
+              <button type="button" (click)="resetForm()" class="btn btn-secondary ms-2 px-4">
+                Reset
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Success Message -->
+          <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+            {{ successMessage }}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+            {{ errorMessage }}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Dashboard Link -->
+      <div class="text-center mt-3">
+        <a routerLink="/dashboard" class="text-primary">Dashboard</a>
+      </div>
+
+    </div>
+  </div>
 </div>

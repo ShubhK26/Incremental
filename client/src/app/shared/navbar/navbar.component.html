@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <!-- Brand -->
-    <a class="navbar-brand" routerLink="/dashboard">EduConnect</a>
+    <a class="navbar-brand" routerLink="dashboard">EduConnect</a>
 
     <!-- Toggler for small screens -->
     <button
@@ -23,18 +23,18 @@
 
         <!-- TEACHER links -->
         <li class="nav-item" *ngIf="role === 'TEACHER'">
-          <a class="nav-link" routerLink="/add-course">Add Course</a>
+          <a class="nav-link" routerLink="course">Add Course</a>
         </li>
         <li class="nav-item" *ngIf="role === 'TEACHER'">
-          <a class="nav-link" routerLink="/add-enrollment">Add Enrollment</a>
+          <a class="nav-link" routerLink="enrollment">Add Enrollment</a>
         </li>
 
         <!-- STUDENT links -->
         <li class="nav-item" *ngIf="role === 'STUDENT'">
-          <a class="nav-link" routerLink="/add-course">Add Course</a>
+          <a class="nav-link" routerLink="course">Add Course</a>
         </li>
         <li class="nav-item" *ngIf="role === 'STUDENT'">
-          <a class="nav-link" routerLink="/add-enrollment">Add Enrollment</a>
+          <a class="nav-link" routerLink="enrollment">Add Enrollment</a>
         </li>
       </ul>
 
