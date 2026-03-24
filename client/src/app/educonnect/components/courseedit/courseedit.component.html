@@ -1,35 +1,58 @@
-<div class="form-container">
-<h2>Update Course</h2>
-<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-<div class="form-group">
-<label for="courseName">Course Name:</label>
-<input type="text" id="courseName" formControlName="courseName" />
-<div *ngIf="courseForm.get('courseName')?.invalid && courseForm.get('courseName')?.touched" class="error">
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Update Course</h4>
+    </div>
 
-                Course Name is required.
-</div>
-</div>
- 
-        <div class="form-group">
-<label for="description">Description:</label>
-<textarea id="description" formControlName="description"></textarea>
-<div *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched" class="error">
+    <div class="card-body">
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
 
-                Description must be less than 500 characters.
+        <!-- Course Name -->
+        <div class="mb-3">
+          <label for="courseName" class="form-label">Course Name</label>
+          <input type="text" id="courseName" formControlName="courseName" class="form-control" />
+          <div class="text-danger mt-1" 
+               *ngIf="courseForm.get('courseName')?.invalid && courseForm.get('courseName')?.touched">
+            Course Name is required.
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" rows="3" formControlName="description" class="form-control"></textarea>
+          <div class="text-danger mt-1"
+               *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched">
+            Description must be less than 500 characters.
+          </div>
+        </div>
+
+        <!-- Teacher Name -->
+        <div class="mb-3">
+          <label for="teacher" class="form-label">Teacher</label>
+          <input type="text" id="teacher" formControlName="teacher" class="form-control" readonly />
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100" [disabled]="courseForm.invalid">
+          Update Course
+        </button>
+
+        <!-- Back to Dashboard -->
+        <div class="text-center mt-3">
+          <a routerLink="/educonnect" class="text-decoration-none">Back to Dashboard</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
 </div>
-</div>
-<div class="form-group">
-<label for="teacher">Teacher Name:</label>
-<input type="text" id="teacher" formControlName="teacher" [readonly]="true" class="readonly-input" />
-</div>
-<div class="form-actions">
-<button type="submit" [disabled]="courseForm.invalid">Submit</button>
-</div>
-<div class="form-footer">
-<a routerLink="/educonnect" class="link">Dashboard</a>
-</div>
-</form>
-<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-</div>
- 

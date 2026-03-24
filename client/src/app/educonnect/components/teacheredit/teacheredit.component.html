@@ -1,78 +1,128 @@
-<div class="form-container">
-<h2>Update Teacher</h2>
-<form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
-<div class="form-group">
-<label for="fullName">Full Name:</label>
-<input type="text" id="fullName" formControlName="fullName" />
-<div *ngIf="teacherForm.get('fullName')?.invalid && teacherForm.get('fullName')?.touched" class="error">
-                Full Name is required.
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Update Teacher</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+
+        <!-- Full Name -->
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" formControlName="fullName" />
+          <div class="text-danger mt-1"
+               *ngIf="teacherForm.get('fullName')?.invalid && teacherForm.get('fullName')?.touched">
+            Full Name is required.
+          </div>
+        </div>
+
+        <!-- Username -->
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control" formControlName="username" />
+          <div class="text-danger mt-1"
+               *ngIf="teacherForm.get('username')?.invalid && teacherForm.get('username')?.touched">
+            <small *ngIf="teacherForm.get('username')?.hasError('required')">Username is required.</small>
+            <small *ngIf="teacherForm.get('username')?.hasError('pattern')">No special characters allowed.</small>
+          </div>
+        </div>
+
+        <!-- Password with Eye Icon -->
+        <div class="mb-3 position-relative">
+          <label class="form-label">Password</label>
+
+          <div class="input-group">
+            <input type="password" class="form-control" formControlName="password" id="passwordInput" />
+            <span class="input-group-text" style="cursor:pointer;" onclick="togglePassword()">
+              <i id="eyeIcon" class="bi bi-eye"></i>
+            </span>
+          </div>
+
+          <div class="text-danger mt-1"
+               *ngIf="teacherForm.get('password')?.invalid && teacherForm.get('password')?.touched">
+            <small *ngIf="teacherForm.get('password')?.hasError('required')">Password is required.</small>
+            <small *ngIf="teacherForm.get('password')?.hasError('minlength')">Min 8 characters.</small>
+            <small *ngIf="teacherForm.get('password')?.hasError('pattern')">
+              Must include 1 uppercase letter & 1 digit.
+            </small>
+          </div>
+        </div>
+
+        <!-- Contact Number -->
+        <div class="mb-3">
+          <label class="form-label">Contact Number</label>
+          <input type="text" class="form-control" formControlName="contactNumber" />
+          <div class="text-danger mt-1"
+               *ngIf="teacherForm.get('contactNumber')?.invalid && teacherForm.get('contactNumber')?.touched">
+            Must be a 10‑digit number.
+          </div>
+        </div>
+
+        <!-- Email (readonly) -->
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" readonly />
+        </div>
+
+        <!-- Subject -->
+        <div class="mb-3">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-control" formControlName="subject" />
+          <div class="text-danger mt-1"
+               *ngIf="teacherForm.get('subject')?.invalid && teacherForm.get('subject')?.touched">
+            Subject is required.
+          </div>
+        </div>
+
+        <!-- Years of Experience -->
+        <div class="mb-3">
+          <label class="form-label">Years of Experience</label>
+          <input type="number" class="form-control" formControlName="yearsOfExperience" />
+          <div class="text-danger mt-1"
+               *ngIf="teacherForm.get('yearsOfExperience')?.invalid && teacherForm.get('yearsOfExperience')?.touched">
+            Minimum 1 year of experience required.
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-success w-100" [disabled]="teacherForm.invalid">
+          Update Teacher
+        </button>
+
+        <!-- Dashboard link -->
+        <div class="text-center mt-3">
+          <a routerLink="/educonnect" class="text-decoration-none">Back to Dashboard</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success message -->
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
 </div>
-</div>
- 
-        <div class="form-group">
-<label for="username">Username:</label>
-<input type="text" id="username" formControlName="username" />
-<div *ngIf="teacherForm.get('username')?.invalid && teacherForm.get('username')?.touched" class="error">
-<small *ngIf="teacherForm.get('username')?.hasError('required')">Username is required.</small>
-<small *ngIf="teacherForm.get('username')?.hasError('pattern')">Username cannot contain special
-                    characters.</small>
-</div>
-</div>
- 
-        <div class="form-group">
-<label for="password">Password:</label>
-<input type="password" id="password" formControlName="password" />
-<div *ngIf="teacherForm.get('password')?.invalid && teacherForm.get('password')?.touched" class="error">
-<small *ngIf="teacherForm.get('password')?.hasError('required')">Password is required.</small>
-<small *ngIf="teacherForm.get('password')?.hasError('minlength')">Password must be at least 8
-                    characters long.</small>
-<small *ngIf="teacherForm.get('password')?.hasError('pattern')">Password must contain at least one
-                    capital letter and one numeric digit.</small>
-</div>
-</div>
- 
-        <div class="form-group">
-<label for="contactNumber">Contact Number:</label>
-<input type="text" id="contactNumber" formControlName="contactNumber" />
-<div *ngIf="teacherForm.get('contactNumber')?.invalid && teacherForm.get('contactNumber')?.touched"
-                class="error">
-                Contact Number must be 10 digits.
-</div>
-</div>
- 
-        <div class="form-group">
-<label for="email">Email:</label>
-<input type="email" id="email" formControlName="email" />
-<div *ngIf="teacherForm.get('email')?.invalid && teacherForm.get('email')?.touched" class="error">
-                A valid email is required.
-</div>
-</div>
- 
-        <div class="form-group">
-<label for="subject">Subject:</label>
-<input type="text" id="subject" formControlName="subject" />
-<div *ngIf="teacherForm.get('subject')?.invalid && teacherForm.get('subject')?.touched" class="error">
-                Subject is required.
-</div>
-</div>
- 
-        <div class="form-group">
-<label for="yearsOfExperience">Years of Experience:</label>
-<input type="number" id="yearsOfExperience" formControlName="yearsOfExperience" />
-<div *ngIf="teacherForm.get('yearsOfExperience')?.invalid && teacherForm.get('yearsOfExperience')?.touched"
-                class="error">
-                Minimum 1 year of experience is required.
-</div>
-</div>
- 
-        <div class="form-actions">
-<button type="submit" [disabled]="teacherForm.invalid">Submit</button>
-</div>
-<div class="form-footer">
-<a routerLink="/educonnect" class="link">Dashboard</a>
-</div>
-</form>
- 
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-</div>
+
+<!-- Password toggle script -->
+<script>
+  function togglePassword() {
+    const input = document.getElementById("passwordInput");
+    const icon = document.getElementById("eyeIcon");
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("bi-eye");
+      icon.classList.add("bi-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye");
+    }
+  }
+</script>
