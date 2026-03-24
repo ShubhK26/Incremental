@@ -80,8 +80,8 @@
 
       <div *ngIf="selectedRole === 'TEACHER'" class="mt-3">
         <label for="teacherSubject" class="form-label fw-semibold">Subject:</label>
-        <input id="teacherSubject" formControlName="teacherSubject" type="text" class="form-control" />
-        <div class="text-danger small mt-1" *ngIf="registrationForm.get('teacherSubject')?.invalid && registrationForm.get('teacherSubject')?.touched">
+        <input id="teacherSubject" formControlName="subject" type="text" class="form-control" />
+        <div class="text-danger small mt-1" *ngIf="registrationForm.get('subject')?.invalid && registrationForm.get('subject')?.touched">
           Subject is required for teachers.
         </div>
       </div>
